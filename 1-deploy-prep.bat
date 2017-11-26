@@ -1,0 +1,1 @@
+phonegap cordova prepare android

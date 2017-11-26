@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src * 'unsafe-inline'; media-src *">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <title>myLightning Wallet</title>
+
+  <!-- favicon -->
+  <link rel="icon" href="favicon.ico">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/slate/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css">
+  <link rel="stylesheet" href="css/angular-auto-complete.css">
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/signalr.js/2.2.2/jquery.signalR.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.6.6/angular-sanitize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.6/angular-animate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <script src="js/angular-modal-service.min.js"></script>
+  <script src="js/jsqrcode-combined.min.js"></script>
+  <script src="js/html5-qrcode.min.js"></script>
+  <script src="js/hammer.min.js"></script>
+  <script src="js/hammer-time.min.js"></script>
+  <script src="js/angular-auto-complete.js"></script>
+  <script src="js/websocketclient.js"></script>
+
+  <!-- Angular control -->
+  <script src="configs/routeconfig.js"></script>
+  <script src="services/lightning.service.js"></script>
+  <script src="services/broadcast.service.js"></script>
+
+  <!-- View Controllers -->
+  <script src="controllers/index.controller.js"></script>
+  <script src="controllers/home.controller.js"></script>
+  <script src="controllers/transactions.controller.js"></script>
+
+  <!-- Modal Controllers -->
+  <script src="controllers/qrscanner.controller.js"></script>
+  <script src="controllers/sendquickpay.controller.js"></script>
+  <script src="controllers/createinvoice.controller.js"></script>
+  <script src="controllers/sendpayment.controller.js"></script>
+  <script src="controllers/openchannel.controller.js"></script>
+  <script src="controllers/qrdisplay.controller.js"></script>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+</head>
+
+<body>
+  <div id="container" ng-controller="MainController as main" style="touch-action: none;">
+    <nav class="navbar navbar-fixed-top navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header" nowrap>
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CoinBLITZ</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li id="#gohome" ><a ng-click="main.changescreen('gohome')" href="#!" data-toggle="collapse" data-target=".navbar-collapse"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+            <li id="#gotransactions"><a ng-click="main.changescreen('gotransactions')" href="#!/transactions" data-toggle="collapse" data-target=".navbar-collapse"><span class="glyphicon glyphicon-list" ></span> Transactions</a></li>
+            <li id="#gosettings"><a ng-click="main.changescreen('gosettings')" href="#!/settings" data-toggle="collapse" data-target=".navbar-collapse"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li id="#gologout"><a ng-click="main.dologout()" href="javascript:void(0)"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid">
+      <div id="alertbox" class="alert alert-info error-container col-xs-11 col-sm-7 col-md-7 col-lg-7" style="right:20px" hidden>
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <table style="background-color:transparent">
+          <tr>
+            <td style="width:25px">
+              <img src="./icons/info.png" style="width:15px;height:15px; vertical-align:top;"/>
+            </td>
+            <td style="padding-right:5px">
+              <span>{{main.alerttext}}</span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="blockchain-notification" ng-cloak ng-show="!main.blockchainsynced" class="alert alert-warning">
+        <h4>Please wait while synchronizing to blockchain!</h4>
+        <ul class="list-inline compact">
+          <li class="h5">
+            <b>Current block height:</b><br>
+          </li>
+          <li class="h5">
+            <div id="blockchain-notification-text">{{main.info.result.blockheight}}</div>
+          </li>
+        </ul>
+      </div>
+      <div ng-cloak ng-show="main.serverdisconnected" class="alert alert-danger" >
+        <h4 style="margin-bottom:0px">Server connection has been lost - attempting to reconnect.</h4>
+      </div>
+    </div>
+    <div class="{{whichWayToMove}}">
+      <div ng-view class="my_web_div"></div>
+    </div>
+  </div>
+  <div class="app"/>
+</body>
+</html>

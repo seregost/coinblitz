@@ -1,0 +1,9 @@
+{
+ "android": {
+     "release": {
+         "keystore":".\\coinblitz.keystore",
+         "alias":"com.seregost.coinblitz",
+         "keystoreType":""
+       }
+   }
+}

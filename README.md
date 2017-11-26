@@ -1,4 +1,6 @@
-# CoinBlitz Mobile Bitcoin Wallet [![bitHound Score][bithound-img]][bithound-url]
+# CoinBlitz Mobile Bitcoin Wallet
+
+[![Build Status][![MIT licensed]
 
 A mobile app geared towards use by the mylightning web wallet, but can be used with anything that supports the mylightning REST SDK.
 
@@ -17,15 +19,15 @@ cd coinblitz
 
 ### 2. Downloading PhoneGap CLI
 
-Next you will need to install the latest version of the (`PhoneGap API`(https://phonegap.com/getstarted/)) so that you can access the PhoneGap CLI.
+Next you will need to install the latest version of the [`PhoneGap API`](https://phonegap.com/getstarted/) so that you can access the PhoneGap CLI.
 
 ### 3. Generating a Private Key
 
-Next you will need to generate a keystore containing a private key with an alias corresponding to the name of the app.  In this case, the name is (`com.seregost.coinblitz`).
+Next you will need to generate a keystore containing a private key with an alias corresponding to the name of the app.  In this case, the name is `com.seregost.coinblitz`.
 
-As an example, refer to the (`first half of this guide.`(http://docs.phonegap.com/phonegap-build/signing/android/#generating-a-private-key))
+As an example, refer to the [`first half of this guide.`](http://docs.phonegap.com/phonegap-build/signing/android/#generating-a-private-key)
 
-This keystore will need to be placed in the root of the project folder and named (`coinblitz.keystore`).  Please refer to (`build.json`(https://github.com/seregost/coinblitz/blob/master/build.json)) for details on the script.
+This keystore will need to be placed in the root of the project folder and named `coinblitz.keystore`.  Please refer to [`build.json`](https://github.com/seregost/coinblitz/blob/master/build.json) for details on the script.
 
 ### 4. Building the project
 
@@ -43,8 +45,8 @@ Once complete, type the following:
 phonegap build android --release
 ```
 
-This will build a signed release .apk file for the android platform.  It should ask you for the password for your keystore and private key created in (`Step 3`) above.
+This will build a signed release .apk file for the android platform.  It should ask you for the password for your keystore and private key created in `Step 3` above.
 
 ### 5. Install on device
 
-If successful this build will create an (`android-release.apk`) file in the sub-directory (`platforms/android/build/outputs/apk`).  This file can be copied to your android device and tested.
+If successful this build will create an `android-release.apk` file in the sub-directory `platforms/android/build/outputs/apk`.  This file can be copied to your android device and tested.

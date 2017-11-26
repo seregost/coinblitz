@@ -1,8 +1,8 @@
 # CoinBlitz Mobile Bitcoin Wallet
 
-[![Build Status][![MIT licensed]
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/seregost/coinblitz/blob/master/LICENSE)
 
-A mobile app geared towards use by the mylightning web wallet, but can be used with anything that supports the mylightning REST SDK.
+A mobile app geared towards use by the [`mylightning web wallet`](https://github.com/seregost/mylightning), but can be used with anything that supports the mylightning REST API specification.
 
 ## Installation
 
